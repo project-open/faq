@@ -8,19 +8,19 @@ ad_page_contract {
     @creation-date 2000-10-25
 
 } {
-    faq_id:integer,notnull,trim
+    faq_id:naturalnum,notnull,trim
     question:html,notnull,trim
     answer:html,notnull,trim
     entry_id:naturalnum,optional
-    insert_p:optional
+    insert_p:boolean,optional
  
 }
 
 set package_id [ad_conn package_id]
 
-ad_require_permission $package_id faq_create_faq
+permission::require_permission -object_id $package_id -privilege faq_create_faq
 
-set user_id [ad_verify_and_get_user_id]
+set user_id [ad_conn user_id]
 set creation_ip [ad_conn host]
 
 if {$insert_p == "t" } {
@@ -43,7 +43,7 @@ if {$insert_p == "t" } {
 
     db_dml faq_update $sql_update_q_and_as
     
-    set sort_key [expr $old_sort_key + 1]
+    set sort_key [expr {$old_sort_key + 1}]
     
     set entry_id [db_nextval acs_object_id_seq]
     }
@@ -74,4 +74,4 @@ db_transaction {
     }
 }
 
-ad_returnredirect "one-faq?[export_url_vars faq_id]"
+ad_returnredirect [export_vars -base one-faq {faq_id}]

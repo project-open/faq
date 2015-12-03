@@ -10,8 +10,8 @@ ad_page_contract {
     taken largely from acs 3.4 faq/swap.tcl
    
 } {
-    entry_id:integer,notnull
-    faq_id:integer,notnull
+    entry_id:naturalnum,notnull
+    faq_id:naturalnum,notnull
 }
 
 set package_id [ad_conn package_id]
@@ -51,5 +51,5 @@ db_transaction {
 
 db_release_unused_handles
 
-ad_returnredirect "one-faq?[export_url_vars faq_id]" 
+ad_returnredirect [export_vars -base one-faq {faq_id}] 
 

@@ -1,10 +1,9 @@
 <master>
-<property name="context">@context;noquote@</property>
-<property name="title">@title;noquote@</property>
+<property name="context">@context;literal@</property>
+<property name="doc(title)">@title;literal@</property>
 
 <form action="@action@">
- <input type="hidden" name="faq_id" value="@faq_id@">
- <blockquote>
+ <div><input type="hidden" name="faq_id" value="@faq_id@"></div>
   <table>
    <tr>
     <th align="right">#faq.Name#</th>
@@ -12,7 +11,7 @@
    </tr>
    <tr>
     <th align="right">#faq.QA_On_Separate_Pages#</th>
-    <td><select name=separate_p>
+    <td><select name="separate_p">
 	<if @separate_p@ eq "t">
 	<option value="t" selected>#faq.Yes#</option>
 	<option value="f">#faq.No#</option>
@@ -30,6 +29,5 @@
     <th></th>
     <td><input type="submit" value="@submit_label@"></td>
   </table>
- </blockquote>
 </form>
 
